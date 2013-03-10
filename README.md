@@ -10,4 +10,5 @@ TODO
 ===================
 * Support use of git-submodules?
 * Windows-support needed? (not even tested yet)
-* 
+* Optionally gzip or tar the whole pack of release files
+* ?

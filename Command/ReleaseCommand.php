@@ -2,9 +2,13 @@
 
 namespace ErikTrapman\Bundle\ReleaseCommandBundle\Command;
 
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\ProcessBuilder;
 
@@ -18,7 +22,7 @@ class ReleaseCommand extends ContainerAwareCommand
     {
         $this
             ->setName('eriktrapman:release')
-            ->addArgument('target-dir', \Symfony\Component\Console\Input\InputArgument::REQUIRED)
+            ->addArgument('target-dir', InputArgument::REQUIRED)
             ->setDescription("Prepares a release of a standard Symfony2-project by copying all files needed to a given path")
         ;
     }
@@ -36,7 +40,7 @@ class ReleaseCommand extends ContainerAwareCommand
         $f = new ExecutableFinder();
         $git = $f->find('git');
         if (!$git) {
-            throw new \RuntimeException("This command cannot run without GIT.");
+            throw new RuntimeException("This command cannot run without GIT.");
         }
         $tarname = uniqid().'.tar';
         $pb = ProcessBuilder::create(array($git, 'archive', '-o', $tarname, 'HEAD'));
@@ -55,9 +59,9 @@ class ReleaseCommand extends ContainerAwareCommand
         $p = $pb->getProcess();
         $p->run();
 
-        $finder = new \Symfony\Component\Finder\Finder();
+        $finder = new Finder();
         $finder->in($rootDir.'/../')->ignoreDotFiles(true)->ignoreVCS(true);
-        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
+        $filesystem = new Filesystem();
         $filesystem->mirror($rootDir.'/../vendor/', $targetDir.'/vendor/', $finder);
 
         $this->injectApplicationVitals($rootDir, $targetDir);
@@ -70,7 +74,7 @@ class ReleaseCommand extends ContainerAwareCommand
     private function injectApplicationVitals($rootDir, $targetDir)
     {
         $ignoredFiles = file($rootDir.'/../.gitignore');
-        $fileSystem = new \Symfony\Component\Filesystem\Filesystem();
+        $fileSystem = new Filesystem();
         foreach ($ignoredFiles as $ignoreFile) {
             $ignoreFile = trim($ignoreFile);
             if (0 == strlen($ignoreFile) || false !== strpos($ignoreFile, '#')) {
