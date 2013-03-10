@@ -1,7 +1,7 @@
 {
     "name": "eriktrapman/release-commmand-bundle",
     "description": "Prepare a Symfony2 release",
-    "keywords": ["symfony", "console", "command", "release", "prepare", "web"],
+    "keywords": ["symfony", "console", "command", "release", "prepare", "git-archive","shared hosting"],
     "homepage": "https://github.com/ErikTrapman/ReleaseCommandBundle",
     "type": "symfony-bundle",
     "license": "MIT",
