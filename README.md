@@ -6,6 +6,9 @@ Useful when you have to FTP all of your files individually to a shared-hosting e
 
 Please note, this script does not support the use of git-submodules, simply because it uses git-archive, and this does not work with git-submodules.
 
+Since this script does use git-archive, you might want to double check if you're using .gitattributes (http://git-scm.com/book/ch7-2.html) to prevent .git* files ending up on your webserver.
+
+
 TODO
 ===================
 * Support use of git-submodules?
