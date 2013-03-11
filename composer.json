@@ -1,5 +1,5 @@
 {
-    "name": "eriktrapman/release-commmand-bundle",
+    "name": "eriktrapman/release-command-bundle",
     "description": "Prepare a Symfony2 release",
     "keywords": ["symfony", "console", "command", "release", "prepare", "git-archive","shared hosting"],
     "homepage": "https://github.com/ErikTrapman/ReleaseCommandBundle",
