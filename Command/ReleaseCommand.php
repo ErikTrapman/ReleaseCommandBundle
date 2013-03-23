@@ -60,9 +60,9 @@ class ReleaseCommand extends ContainerAwareCommand
         $p->run();
 
         $finder = new Finder();
-        $finder->in($rootDir.'/../')->ignoreDotFiles(true)->ignoreVCS(true);
+        $finder->in($rootDir.'/../vendor/')->ignoreDotFiles(true)->ignoreVCS(true);
         $filesystem = new Filesystem();
-        $filesystem->mirror($rootDir.'/../vendor/', $targetDir.'/vendor/', $finder);
+        $filesystem->mirror($rootDir.'/../vendor/', $targetDir.'/vendor/', $finder, array('copy_on_windows' => true));
 
         $this->injectApplicationVitals($rootDir, $targetDir);
         $filesystem->remove($rootDir.'/../'.$tarname);
