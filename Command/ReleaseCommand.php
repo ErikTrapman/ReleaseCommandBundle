@@ -83,14 +83,6 @@ class ReleaseCommand extends ContainerAwareCommand
             if (false !== strpos($ignoreFile, 'app/bootstrap')) {
                 $fileSystem->copy($rootDir.'/bootstrap.php.cache', $targetDir.'/app/bootstrap.php.cache');
             }
-            if (false !== strpos($ignoreFile, 'app/config/parameters')) {
-                if ($fileSystem->exists($rootDir.'/config/parameters.yml')) {
-                    $fileSystem->copy($rootDir.'/config/parameters.yml', $targetDir.'/app/config/parameters.yml');
-                }
-                if ($fileSystem->exists($rootDir.'/config/parameters.ini')) {
-                    $fileSystem->copy($rootDir.'/config/parameters.ini', $targetDir.'/app/config/parameters.ini');
-                }
-            }
         }
     }
 }
